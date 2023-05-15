@@ -76,6 +76,7 @@ class Expression:
             return str(operand)
         else:
             return '(' + str(operand) + ')'
+
         
     def __add_exponents(self,operand):
         """adds an expontent to an operand based on the EXPONENT_FREQUENCY"""
@@ -92,4 +93,4 @@ class Expression:
 
 a = Expression(include_variables = True)
 print(a.expression)
-print(a.result)
+#print(a.result)
