@@ -4,8 +4,8 @@ MAX_NUMBER_OF_CONSTANTS = 1
 MAX_RANGE_OF_CONSTANTS = 2
 
 MAX_NUMBER_OF_VARIABLE_TERMS = 1
-MAX_VARIABLE_VALUE = 9
-MAX_COEFFICIENT_RANGE = 20
+MAX_VARIABLE_VALUE = 5
+MAX_COEFFICIENT_RANGE = 5
 
 VARIABLE_SYMBOLS = ['a','b','c','x','y','z']
 
@@ -34,7 +34,7 @@ class Term:
         self.math_value = value #real integer value used for calculations, not display
         self.term_type = term_type
         getattr(self, term_type)(value)
-
+            
         
         
         
@@ -45,12 +45,15 @@ class Term:
     def variable(self, value):
         """creates a variable and coefficient which together give product of 'value'"""
         integers = []
-        for i in range(1,value):
+
+        for i in range(1,value+1):
+
             if value%i == 0:
                 integers.append(i)
    
         if len(integers) > 1:
             integers.remove(1)
+
 
         self.variable = Variable(random.choice(integers))
         self.coefficient = int(value/self.variable.value)
@@ -66,7 +69,7 @@ class Term:
 
 class Expression:
     """builds an expression with defined characteristics"""
-    def __init__(self, value, number_of_terms):
+    def __init__(self, value):
         self.expression_terms = []
         chosen_expression_layout_key = random.choice(list(EXPRESSION_LAYOUTS))
 
@@ -80,5 +83,6 @@ class Expression:
     def const_t(self):
         return Term('constant',random.randrange(MAX_VARIABLE_VALUE+1))
 
-b = Term('variable', random.randrange(MAX_VARIABLE_VALUE+1))
-print(b.display())
+b = Expression(20)
+for i in b.expression_terms:
+    print(i.display())
