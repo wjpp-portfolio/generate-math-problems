@@ -93,4 +93,4 @@ class Expression:
 
 a = Expression(include_variables = True)
 print(a.expression)
-#print(a.result)
+print(a.result)
