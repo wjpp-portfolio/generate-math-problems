@@ -60,6 +60,8 @@ _in_use_variables = dict()
 ##            return str(self.coefficient) + str(self.variable.symbol)
 ##        
 ##
+
+
 class Expression:
     """builds an expression with defined characteristics"""
     def __init__(self):
