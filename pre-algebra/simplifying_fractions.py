@@ -3,7 +3,7 @@
 import random
 
 def composite_number():
-    a = random.randrange(100) + 3
+    a = random.randrange(3, 100)
     counter = 0
     for i in range(1,a):
         if a%i == 0:
@@ -21,7 +21,7 @@ denominator = 0
 
 while denominator <= numerator:
     denominator = composite_number()
-
+print('Simplify this fraction:')
 print(numerator, '/', denominator)
 
 candidates = []
@@ -29,4 +29,4 @@ for i in range(1, denominator):
     if numerator % i == 0 and denominator % i == 0:
         candidates.append(i)
 
-simplified = int(numerator / candidates[-1]), '/', int(denominator / candidates[-1])
+answer = int(numerator / candidates[-1]), '/', int(denominator / candidates[-1])
