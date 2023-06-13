@@ -1,26 +1,15 @@
 #This script generates composite numbers into fractions which can be simplified
 
 import random
-
-def composite_number():
-    a = random.randrange(3, 100)
-    counter = 0
-    for i in range(1,a):
-        if a%i == 0:
-            counter += 1
-
-    if counter > 2:
-        return a 
-    
-    else:
-        return a + 1
+import math_lib
 
 
-numerator = composite_number()
+
+numerator = math_lib.generate_composite_number(100)
 denominator = 0
 
 while denominator <= numerator:
-    denominator = composite_number()
+    denominator = math_lib.generate_composite_number(100)
 print('Simplify this fraction:')
 print(numerator, '/', denominator)
 

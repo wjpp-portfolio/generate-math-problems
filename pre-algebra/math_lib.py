@@ -1,3 +1,5 @@
+import random
+
 def gen_multiplication_table(calculation_limit, highest_times_table):
     """returns non-duplicating list of products up to the calcuation limit, including all times-tablesup to highest_times_table""" 
     multi_table = []
@@ -28,3 +30,18 @@ def gen_prime_number_list(limit):
             list_of_primes.append(candidate_prime)
     
     return sorted(list_of_primes)
+
+
+def generate_composite_number(limit):
+    """returns a composite number below limit"""
+    candidate = random.randrange(3, limit) # + 1 from limit omitted intentionally to not accidently go over limit should number be prime
+    divisors = 0
+    for i in range(1, candidate):
+        if candidate%i == 0:
+            divisors += 1
+
+    if divisors > 2:
+        return candidate 
+    
+    else:
+        return candidate + 1
