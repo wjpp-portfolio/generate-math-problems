@@ -45,3 +45,11 @@ def generate_composite_number(limit):
     
     else:
         return candidate + 1
+
+def generate_common_factors(num: int, den: int) -> list:
+    """finds common fators between two integers"""
+    common_factors = []
+    for i in range(2, den):
+        if num % i == 0 and den % i == 0:
+            common_factors.append(i)
+    return common_factors
