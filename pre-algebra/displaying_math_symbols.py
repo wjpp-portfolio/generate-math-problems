@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 from fractions import Fraction
-import math_lib
 import random
 
 MATPLOTLIB_OPERATOR_STRINGS = {
@@ -9,10 +8,6 @@ MATPLOTLIB_OPERATOR_STRINGS = {
     '+': '+',
     '-': '-'
     }
-
-include_negative_numbers = False
-include_variables = False
-include_decimal = False
 
 class Fract:
     """fraction object which keeps track of non-simplified numerator and denominator"""
@@ -25,10 +20,12 @@ class Fract:
 
         self.num = num
         self.den = den
-        
-    def as_string(self):
-        """returns fraction string for use in matplotlib"""
-        return '\\frac{{{0}}}{{{1}}}'.format(self.num, self.den)
+
+        self.matplotlib_string = '\\frac{{{0}}}{{{1}}}'.format(self.num, self.den)
+
+    def __repr__(self):
+        return '{0} / {1}'.format(self.num, self.den)
+
     
 class Fraction_Problem:
     """defines a construct to generate and solve fraction problems"""
@@ -41,7 +38,9 @@ class Fraction_Problem:
             if i < number_of_fractions - 1:
                 self.equation_map.append(random.choice(['+','-','*','/']))
 
-    def solve(self):
+        self.show(self.equation_map)
+
+    def solve(self) -> Fract:
         """evaluates fractions and operators"""
         char_code = 97
         string = ''
@@ -53,14 +52,15 @@ class Fraction_Problem:
                 char_code += 1
             else:
                 string += ' ' + i + ' '
-
-        return eval(string)
+        solution = eval(string)
         
-    def show(self):
+        return Fract(solution.numerator, solution.denominator)
+        
+    def show(self, passed):
         string = ''
-        for i in self.equation_map:
+        for i in passed:
             if type(i) is Fract:
-                string += i.as_string()
+                string += i.matplotlib_string
             else:
                 string += MATPLOTLIB_OPERATOR_STRINGS[i]
             
@@ -70,4 +70,4 @@ class Fraction_Problem:
         plt.show()
 
 problem = Fraction_Problem(3)
-problem.show()
+
