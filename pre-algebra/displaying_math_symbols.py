@@ -19,8 +19,6 @@ class Fract:
         
         if num == den:
             num -= 1
-        if random.random() < CHANCE_FRACTION_WILL_BE_NEGATIVE / 100:
-            num = num * -1
             
         self.num = num
         self.den = den
@@ -36,13 +34,16 @@ class Fraction_Problem:
     def __init__(self, number_of_fractions: int):
         self.equation_map = []
         for i in range(number_of_fractions):
-            
-            self.equation_map.append(Fract(random.randrange(1,10),random.randrange(2,20)))
+            n = random.randrange(1,10)
+            d = random.randrange(2,20)
+            if random.random() < CHANCE_FRACTION_WILL_BE_NEGATIVE / 100:
+                n = n * -1
+            self.equation_map.append(Fract(n, d))
 
             if i < number_of_fractions - 1:
                 self.equation_map.append(random.choice(['+','-','*','/']))
 
-        self.show(self.equation_map)
+        self.show()
 
     def solve(self) -> Fract:
         """evaluates fractions and operators"""
@@ -60,9 +61,9 @@ class Fraction_Problem:
         
         return Fract(solution.numerator, solution.denominator)
         
-    def show(self, passed):
+    def show(self):
         string = ''
-        for i in passed:
+        for i in self.equation_map:
             if type(i) is Fract:
                 string += i.matplotlib_string
             else:
@@ -73,5 +74,5 @@ class Fraction_Problem:
         plt.text(0, 0, '$' + string + '$', fontsize=30)
         plt.show()
 
-problem = Fraction_Problem(random.randrange(2,4))
+problem = Fraction_Problem(random.randrange(2,3))
 
