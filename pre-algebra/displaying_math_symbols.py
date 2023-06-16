@@ -9,6 +9,8 @@ MATPLOTLIB_OPERATOR_STRINGS = {
     '-': '-'
     }
 
+CHANCE_FRACTION_WILL_BE_NEGATIVE = 20
+
 class Fract:
     """fraction object which keeps track of non-simplified numerator and denominator"""
     def __init__(self, num, den):
@@ -17,7 +19,9 @@ class Fract:
         
         if num == den:
             num -= 1
-
+        if random.random() < CHANCE_FRACTION_WILL_BE_NEGATIVE / 100:
+            num = num * -1
+            
         self.num = num
         self.den = den
 
@@ -69,5 +73,5 @@ class Fraction_Problem:
         plt.text(0, 0, '$' + string + '$', fontsize=30)
         plt.show()
 
-problem = Fraction_Problem(3)
+problem = Fraction_Problem(random.randrange(2,4))
 
