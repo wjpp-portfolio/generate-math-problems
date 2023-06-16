@@ -1,18 +1,22 @@
 import matplotlib.pyplot as plt
+from fractions import Fraction
 import math_lib
 import random
 
 MATPLOTLIB_OPERATOR_STRINGS = {
-    0: '\cdot',
-    1: '\div'
+    '*': '\cdot',
+    '/': '\div',
+    '+': '+',
+    '-': '-'
     }
 
+include_negative_numbers = False
+include_variables = False
+include_decimal = False
+
 class Fract:
-    """defines a fraction object"""
-    def __init__(self):
-        num = random.randrange(1,21)
-        den = random.randrange(1,21)
-        
+    """fraction object which keeps track of non-simplified numerator and denominator"""
+    def __init__(self, num, den):
         if num > den:
             num, den = den, num
         
@@ -21,31 +25,49 @@ class Fract:
 
         self.num = num
         self.den = den
-
+        
     def as_string(self):
         """returns fraction string for use in matplotlib"""
         return '\\frac{{{0}}}{{{1}}}'.format(self.num, self.den)
-                    
-
+    
 class Fraction_Problem:
     """defines a construct to generate and solve fraction problems"""
     def __init__(self, number_of_fractions: int):
-        self.fractions = []
-
+        self.equation_map = []
         for i in range(number_of_fractions):
-            self.fractions.append(Fract())
+            
+            self.equation_map.append(Fract(random.randrange(1,10),random.randrange(2,20)))
 
+            if i < number_of_fractions - 1:
+                self.equation_map.append(random.choice(['+','-','*','/']))
+
+    def solve(self):
+        """evaluates fractions and operators"""
+        char_code = 97
+        string = ''
+        for i in self.equation_map:
+            if type(i) is Fract:
+                string += chr(char_code)
+                
+                globals()['%s' % chr(char_code)] = Fraction(i.num, i.den)
+                char_code += 1
+            else:
+                string += ' ' + i + ' '
+
+        return eval(string)
         
     def show(self):
         string = ''
-        for i in self.fractions:
-            string += i.as_string()
-            if i != self.fractions[-1]:
-                string += random.choice(MATPLOTLIB_OPERATOR_STRINGS)
+        for i in self.equation_map:
+            if type(i) is Fract:
+                string += i.as_string()
+            else:
+                string += MATPLOTLIB_OPERATOR_STRINGS[i]
+            
 
         plt.plot()
         plt.text(0, 0, '$' + string + '$', fontsize=30)
         plt.show()
 
-a = Fraction_Problem(2)
-a.show()
+problem = Fraction_Problem(3)
+problem.show()
